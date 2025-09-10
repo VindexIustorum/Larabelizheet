@@ -54,24 +54,34 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        
+        $registro = User::findOrFail($id);
+
+        return view('usuario.action', compact('registro'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+        $registro=User::findOrFail($id);
+        $registro->name=$request->input('name');
+        $registro->email=$request->input('email');
+        $registro->password=bcrypt($request->input('password'));
+        $registro->activo=$request->input('activo');
+        $registro->save();
+        return redirect()->route('usuarios.index')->with('mensaje', 'registro'.$registro->name.'Actualización Ejecutada Satisfactoriamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
+        $registro=User::findOrFail($id);
+        $registro->delete();
+        return redirect()->route('usuarios.index')->with('mensaje', $registro->name. 'Eliminado Satisfactoriamente.');
     }
 }
