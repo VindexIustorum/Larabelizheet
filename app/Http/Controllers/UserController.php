@@ -72,7 +72,7 @@ class UserController extends Controller
         $registro->password=bcrypt($request->input('password'));
         $registro->activo=$request->input('activo');
         $registro->save();
-        return redirect()->route('usuarios.index')->with('mensaje', 'registro'.$registro->name.'Actualización Ejecutada Satisfactoriamente');
+        return redirect()->route('usuarios.index')->with('mensaje', 'El Registro de '.$registro->name.' actualizado satisfactoriamente');
     }
 
     /**
@@ -82,6 +82,12 @@ class UserController extends Controller
     {
         $registro=User::findOrFail($id);
         $registro->delete();
-        return redirect()->route('usuarios.index')->with('mensaje', $registro->name. 'Eliminado Satisfactoriamente.');
+        return redirect()->route('usuarios.index')->with('mensaje', $registro->name. ' <Eliminado Satisfactoriamente.');
+    }
+
+    public function toggleStatus(User $usuario){
+        $usuario->activo =!$usuario->activo;
+        $usuario->save();
+        return redirect()->route('usuarios.index')->with('mensaje', 'El estado del usuario ha sido actualizado satisfactoriamente');
     }
 }

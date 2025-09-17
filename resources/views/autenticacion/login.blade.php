@@ -3,7 +3,7 @@
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title> Panel | Administración </title>
+    <title>AdminLTE 4 | Login Page v2</title>
     <!--begin::Accessibility Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
@@ -11,21 +11,21 @@
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
     <!--end::Accessibility Meta Tags-->
     <!--begin::Primary Meta Tags-->
-    <meta name="title" content="Panel | Administración" />
-    <meta name="author" content="ColorlibHQ" />
+    <meta name="title" content="AdminLTE 4 | Login Page v2" />
+    <meta name="author" content="DrC0it0" />
     <meta
       name="description"
-      content="Panel de Administración del Sistema"
+      content="Panel de control del sistema, en Laravel"
     />
     <meta
       name="keywords"
-      content="panel, administración, esquema piramidal"
+      content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard, accessible admin panel, WCAG compliant"
     />
     <!--end::Primary Meta Tags-->
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
-    <link rel="preload" href="{{asset('css/adminlte.css')}}" as="style" />
+    <link rel="preload" href="{{ asset('css/adminlte.css') }}" as="style" />
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
     <link
@@ -52,64 +52,67 @@
     />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="{{asset('css/adminlte.css')}}" />
+    <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}" />
     <!--end::Required Plugin(AdminLTE)-->
-    @stack('css')
   </head>
   <!--end::Head-->
   <!--begin::Body-->
-  <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
-    <!--begin::App Wrapper-->
-    <div class="app-wrapper">
-      <!--begin::Header-->
-      @include('plantilla.header')
-      <!--end::Header-->
-      <!--begin::Sidebar-->
-      @include('plantilla.menu')
-      <!--end::Sidebar-->
-      <!--begin::App Main-->
-      <main class="app-main">
-        <!--begin::App Content Header-->
-        <div class="app-content-header">
-          <!--begin::Container-->
-          <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row">
-              <div class="col-sm-6"><h3 class="mb-0">Contenidos</h3></div>
-              <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Contenidos</li>
-                </ol>
+  <body class="login-page bg-body-secondary">
+    <div class="login-box">
+      <div class="card card-outline card-primary">
+        <div class="card-header">
+          <a
+            href="../index2.html"
+            class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover"
+          >
+            <h1 class="mb-0"><b>Sistema</b>LTE</h1>
+          </a>
+        </div>
+        <div class="card-body login-card-body">
+          <p class="login-box-msg"> Inicie su sesión </p>
+          @if (session('error'))
+            <div class="alert alert-danger">
+                  {{session('error')}}
+            </div>
+            @endif
+          <form action="{{route('login.post')}}" method="post">
+
+            
+            @csrf
+            <div class="input-group mb-1">
+              <div class="form-floating">
+                <input id="loginEmail" type="email" name="email" class="form-control" value="" placeholder="" />
+                <label for="loginEmail">Email</label>
               </div>
+              <div class="input-group-text"><span class="bi bi-envelope"></span></div>
+            </div>
+            <div class="input-group mb-1">
+              <div class="form-floating">
+                <input id="loginPassword" type="password" name="password" class="form-control" placeholder="" />
+                <label for="loginPassword">Password</label>
+              </div>
+              <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
+            </div>
+            <!--begin::Row-->
+            
+              <!-- /.col -->
+              <div class="col-4">
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary"> Ingresar </button>
+                </div>
+              </div>
+              <!-- /.col -->
             </div>
             <!--end::Row-->
-          </div>
-          <!--end::Container-->
-        </div>
-        <!--end::App Content Header-->
-        <!--begin::App Content-->
-        @yield('contenido')
-        <!--end::App Content-->
-      </main>
-      <!--end::App Main-->
-      <!--begin::Footer-->
-      <footer class="app-footer">
-        <!--begin::To the end-->
-        <div class="float-end d-none d-sm-inline">Pastillas Hierba y Perico</div>
-        <!--end::To the end-->
-        <!--begin::Copyright-->
-        <strong>
-          Copyright &copy; 2025&nbsp;
-          <a href="#" class="text-decoration-none">CoitoCo</a>.
-        </strong>
-        Todos los derechos reservados.
-        <!--end::Copyright-->
-      </footer>
-      <!--end::Footer-->
+          </form>
+          
+
+          <!-- /.social-auth-links -->
+          
+        <!-- /.login-card-body -->
+      </div>
     </div>
-    <!--end::App Wrapper-->
-    <!--begin::Script-->
+    <!-- /.login-box -->
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script
       src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
@@ -126,7 +129,7 @@
       crossorigin="anonymous"
     ></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="{{ asset('js/adminlte.js') }}"></script>
+    <script src="../js/adminlte.js"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
       const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
@@ -150,7 +153,6 @@
     </script>
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->
-    @stack('scripts')
   </body>
   <!--end::Body-->
 </html>

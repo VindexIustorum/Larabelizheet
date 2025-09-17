@@ -8,8 +8,8 @@
                 <i class="bi bi-list"></i>
               </a>
             </li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
+            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Inicio</a></li>
+            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contacto</a></li>
           </ul>
           <!--end::Start Navbar Links-->
           <!--begin::End Navbar Links-->
@@ -23,26 +23,22 @@
             </li>
             <!--end::Fullscreen Toggle-->
             <!--begin::User Menu Dropdown-->
+            @if (Auth::check())
+            
+            
             <li class="nav-item dropdown user-menu">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <img
-                  src="{{ asset('assets/img/user2-160x160.jpg') }}"
-                  class="user-image rounded-circle shadow"
-                  alt="User Image"
-                />
-                <span class="d-none d-md-inline">Alexander Pierce</span>
+                
+                <span class="d-none d-md-inline"> {{ Auth::user()->name }} </span>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                 <!--begin::User Image-->
                 <li class="user-header text-bg-primary">
-                  <img
-                    src="{{ asset('assets/img/user2-160x160.jpg') }}"
-                    class="rounded-circle shadow"
-                    alt="User Image"
-                  />
+                  
                   <p>
-                    Alexander Pierce - Web Developer
-                    <small>Member since Nov. 2023</small>
+
+                    {{ Auth::user()->name }}
+                    <small>Miembro desde   Mar. 1969</small>
                   </p>
                 </li>
                 <!--end::User Image-->
@@ -50,21 +46,25 @@
                 <li class="user-body">
                   <!--begin::Row-->
                   <div class="row">
-                    <div class="col-4 text-center"><a href="#">Followers</a></div>
-                    <div class="col-4 text-center"><a href="#">Sales</a></div>
-                    <div class="col-4 text-center"><a href="#">Friends</a></div>
+                    <div class="col-4 text-center"><a href="#">Seguidores</a></div>
+                    <div class="col-4 text-center"><a href="#">Ventas</a></div>
+                    <div class="col-4 text-center"><a href="#">Amigos</a></div>
                   </div>
                   <!--end::Row-->
                 </li>
                 <!--end::Menu Body-->
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                  <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+                  
+                  <a href="#" onclick="document.getElementById('logout -form').submit();" class="btn btn-default btn-flat float-end"> Cerrar Sesión </a>
                 </li>
                 <!--end::Menu Footer-->
               </ul>
             </li>
+            <form action="{{ route('logout') }}" id="logout -form" method="post" class="d-none">
+                  @csrf
+            </form>
+            @endif
             <!--end::User Menu Dropdown-->
           </ul>
           <!--end::End Navbar Links-->

@@ -37,7 +37,7 @@
         <thead>
 
         <tr>
-            <th style="width: 100px"> Opciones </th>
+            <th style="width: 130px"> Opciones </th>
             <th style="width: 20px"> ID </th>
             <th> Nombre </th>
             <th> Correo </th>
@@ -54,19 +54,26 @@
             @foreach ($registros as $reg)
             <tr>
                 <td> 
-                    <a href="{{ route('usuarios.edit', $reg->id) }}" class="btn btn-warning btn-sm">
+                    <a href="{{ route('usuarios.edit', $reg->id) }}" class="btn btn-info btn-sm">
                         <i class="bi bi-pencil-fill"></i>
                     </a>
                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal-eliminar-{{ $reg->id }}">
                         <i class="bi bi-trash-fill"></i>
                     </button>
+                    <button class="btn {{ $reg->activo ? 'btn-success' : 'btn-warning' }} btn-sm" data-bs-toggle="modal" data-bs-target="#modal-toggle-{{ $reg->id }}">
+                        <i class="bi {{ $reg->activo ? 'bi-check-circle' : 'bi bi-ban' }}"></i>
+                    </button>
                 </td>
                 <td> {{ $reg->id }} </td>
                 <td> {{ $reg->name}}</td>
                 <td> {{ $reg->email }}</td>
-                <td> {{ $reg->activo }}</td>
+                <td> <span class="badge {{ $reg->activo ? 'bg-success' : 'bg-danger' }}"> 
+                    {{ $reg->activo ? 'Activo' : 'Inactivo'}}
+                </span>
+            </td>
             </tr>
             @include('usuario.delete')
+            @include('usuario.activate')
             @endforeach
         @endif
         </tbody>
