@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 
 
@@ -39,6 +40,9 @@ Route::post('logout', function(){
 })->name('logout');
 
 });
+
+Route::resource('roles', RoleController::class);
+
 
 Route::middleware(['guest'])->group(function(){
 
