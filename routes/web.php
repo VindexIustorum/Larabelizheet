@@ -29,6 +29,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function(){
 
 Route::resource('usuarios',UserController::class);
+Route::resource('roles', RoleController::class);
 Route::patch('usuarios/{usuario}/toggle', [UserController::class, 'toggleStatus'])->name('usuarios.toggle');
 Route::get('dashboard', function(){
     return view('dashboard');
@@ -41,7 +42,7 @@ Route::post('logout', function(){
 
 });
 
-Route::resource('roles', RoleController::class);
+
 
 
 Route::middleware(['guest'])->group(function(){

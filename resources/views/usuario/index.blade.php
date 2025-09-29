@@ -22,13 +22,15 @@
                                         <button type="submit" class="btn btn-primary">
                                             <i class="fas fa-search"></i>
                                             Buscar</button>
+                                        @can('user-create')
                                         <a href="{{ route('usuarios.create') }}" class="btn btn-primary">Nuevo</a>
+                                        @endcan
                                     </div>
                                 </div>
                             </form>
                         </div>
                         @if(Session::has('mensaje'))
-                            <div class="alert alert-info alert-dismissible fade show mt-2"> 
+                            <div class=""> 
                                 {{ Session::get('mensaje') }}
                             </div>
                         @endif
@@ -52,17 +54,25 @@
             <tr>
         @else
             @foreach ($registros as $reg)
-            <tr>
+            <tr class="align-middle">
                 <td> 
+                    @can('user-edit')
                     <a href="{{ route('usuarios.edit', $reg->id) }}" class="btn btn-info btn-sm">
                         <i class="bi bi-pencil-fill"></i>
                     </a>
+                    @endcan
+
+                    @can('user-delete')
                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal-eliminar-{{ $reg->id }}">
                         <i class="bi bi-trash-fill"></i>
                     </button>
+                    @endcan
+
+                    @can()
                     <button class="btn {{ $reg->activo ? 'btn-success' : 'btn-warning' }} btn-sm" data-bs-toggle="modal" data-bs-target="#modal-toggle-{{ $reg->id }}">
                         <i class="bi {{ $reg->activo ? 'bi-check-circle' : 'bi bi-ban' }}"></i>
                     </button>
+                    @endcan
                 </td>
                 <td> {{ $reg->id }} </td>
                 <td> {{ $reg->name}}</td>
@@ -72,8 +82,14 @@
                 </span>
             </td>
             </tr>
+            @can('user-delete')
             @include('usuario.delete')
+            @endcan 
+
+            @can('user-activate')
             @include('usuario.activate')
+            @endcan
+
             @endforeach
         @endif
         </tbody>
@@ -98,6 +114,11 @@
     <!--end::Container-->
 </div>
 
-
-
 @endsection
+
+@push('scripts')
+        <script>
+            document.getElementById('menuSeguridad').classList.add('menu-open');
+            document.getElementById('itemUsuario').classList.add('active');
+        </script>
+@endpush
