@@ -47,7 +47,7 @@ class RoleController extends Controller
         $registro = Role::create(['name' => $request->name]);
         $registro->syncPermissions($request->permissions);
 
-        return redirect()->route('roles.index')->with('mensaje', 'Rol'.$registro->name.' Creado satisfactoriamente');
+        return redirect()->route('roles.index')->with('mensaje', 'Rol '.$registro->name.' creado satisfactoriamente');
     }
 
     /**

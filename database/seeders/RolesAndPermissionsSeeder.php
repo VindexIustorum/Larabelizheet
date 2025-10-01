@@ -24,7 +24,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $adminPermissions = [
             'user-list', 'user-create', 'user-edit', 'user-delete', 'user-activate',
-            'role-lsit', 'role-create', 'role-edit', 'role-delete',
+            'rol-list', 'rol-create', 'rol-edit', 'rol-delete',
             'producto-list', 'producto-create', 'producto-edit', 'producto-delete',
             'pedido-list','pedido-anulate',
             

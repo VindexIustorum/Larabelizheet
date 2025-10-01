@@ -14,6 +14,7 @@
                         <div class="card-body">
                             <div>
                                 <form action="{{ route('roles.index') }}" method="get">
+                                    @csrf
                                     <div class="input-group">
                                         <input name="texto" type="text" class="form-control" value=""
                                             placeholder="Ingrese texto a buscar">
@@ -21,7 +22,7 @@
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-search"></i>
                                                 Buscar</button>
-                                                @can('role-create')
+                                                @can('rol-create')
                                             <a href="{{ route('roles.create') }}" class="btn btn-primary">Nuevo</a>
                                             @endcan
                                         </div>
@@ -29,8 +30,11 @@
                                 </form>
                             </div>
                             @if (Session::has('mensaje'))
-                                <div class="">
+                                <div class="alert alert-info alert-dismissible fade show mt-2">
                                     {{ Session::get('mensaje') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                                </div>
+                                    
                                 </div>
                             @endif
                             <div class="table-responsive mt-3">
