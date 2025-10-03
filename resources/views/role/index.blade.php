@@ -78,7 +78,7 @@
                                                                     return "<span class='badge bg-primary me-1'>$name</span>";
                                                                 })->implode(' ') !!}
                                                         @else
-                                                            <span class="badge bg-secondary">Sin permisos</span>
+                                                            <span class="badge bg-secondary"> Sin permisos </span>
                                                         @endif
                                                     </td>
 
