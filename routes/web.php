@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AuthController;
@@ -50,4 +51,8 @@ Route::middleware(['guest'])->group(function(){
 Route::get('login', function(){
     return view('autenticacion.login');})->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('login.post');
+
+
+Route::get('/registro', [RegisterController::class, 'showRegistrationForm'])->name('registro');
+Route::post('/registro', [RegisterController::class, 'registration'])->name('registro.store');
 });

@@ -30,26 +30,17 @@
                                         @method('PUT')
                                     @endif
                                 <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-4 mb-3">
                                         <label for="nombre" class="form-label">Nombre</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $registro->name ?? '') }}" required>
                                         @error('name')
                                             <small class="text-danger"> {{ $message }}</small>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-4 mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $registro->email ?? '') }}" required>
                                         @error('email')
-                                            <small class="text-danger"> {{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="text" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
-                                        @error('password')
                                             <small class="text-danger"> {{ $message }}</small>
                                         @enderror
                                     </div>
@@ -63,6 +54,25 @@
                                             <small class="text-danger"> {{ $message }}</small>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="text" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
+                                        @error('password')
+                                            <small class="text-danger"> {{ $message }}</small>
+                                        @enderror
+                                    </div>
+
+                                    
+                                    <div class="col-md-4 mb-3">
+                                        <label for="password_confirmation" class="form-label">Confirmar password</label>
+                                        <input type="text" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" value="{{ old( 'password_confirmation') }}" required>
+                                        @error('password_confirmation')
+                                            <small class="text-danger"> {{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    
                                     <div class="col-md-4 mb-3">
                                         <label for="role" class="form-label">Rol</label>
                                         <select name="role" id="role" class="form-control">

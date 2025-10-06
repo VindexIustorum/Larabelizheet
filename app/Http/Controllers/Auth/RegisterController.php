@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserRequest;
@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class RegisterController extends Controller
 {
     public function showRegistrationForm(){
-        return view('autenticacion.login');
+        return view('autenticacion.registro');
     }
 
     public function registration(UserRequest $request){
@@ -30,7 +30,7 @@ class RegisterController extends Controller
 
         $clientRole = Role::where('name', 'cliente')->first();
         if($clientRole){
-            $user->assignRole('$clientRole');
+            $user->assignRole($clientRole);
         }
         Auth::login($user);
         return redirect()->route('dashboard')->with('mensaje', 'Registro exitoso. ¡Bienvenido!.');
