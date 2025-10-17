@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\Auth\PerfilController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
-
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 
 Route::get('/', function () {
@@ -41,6 +42,10 @@ Route::post('logout', function(){
     return redirect('/login');
 })->name('logout');
 
+Route::get('/perfil', [PerfilController::class, 'edit'])->name('perfil.edit');
+Route::put('(/perfil', [PerfilController::class, 'update'])->name('perfil.update');
+
+
 });
 
 
@@ -55,4 +60,10 @@ Route::post('login', [AuthController::class, 'login'])->name('login.post');
 
 Route::get('/registro', [RegisterController::class, 'showRegistrationForm'])->name('registro');
 Route::post('/registro', [RegisterController::class, 'registration'])->name('registro.store');
+
+Route::get('password/reset', [ResetPasswordController::class, 'showRequestForm'])->name('password.request');
+Route::post('password/email', [ResetPasswordController::class, 'sendResetLinkEmail'])->name('password.send-link');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
+
 });

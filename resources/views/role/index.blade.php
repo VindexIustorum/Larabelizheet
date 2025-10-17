@@ -16,7 +16,7 @@
                                 <form action="{{ route('roles.index') }}" method="get">
                                     @csrf
                                     <div class="input-group">
-                                        <input name="texto" type="text" class="form-control" value=""
+                                        <input name="texto" type="text" class="form-control" value="{{$texto}}"
                                             placeholder="Ingrese texto a buscar">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-primary">

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     use AuthorizesRequests;
@@ -45,6 +46,10 @@ class UserController extends Controller
         $registro=new User();
         $registro->name=$request->input('name');
         $registro->email=$request->input('email');
+
+        
+        $registro->password = Hash::make($request->input('password'));
+        
         $registro->password=bcrypt($request->input('password'));
         $registro->activo=$request->input('activo');
         $registro->save();
@@ -76,19 +81,21 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        $this->authorize('user-edit');
+        $this->authorize('user-edit'); 
         $registro=User::findOrFail($id);
         $registro->name=$request->input('name');
         $registro->email=$request->input('email');
-        $registro->password=bcrypt($request->input('password'));
+        if ($request->filled('password')) {
+            $registro->password=Hash::make($request->input('password'));
+        }
         $registro->activo=$request->input('activo');
         $registro->save();
-        
+
         $registro->syncRoles([$request->input('role')]);
 
-        return redirect()->route('usuarios.index')->with('mensaje', 'El Registro de '.$registro->name.' actualizado satisfactoriamente.');
+        return redirect()->route('usuarios.index')->with('mensaje', 'Registro '.$registro->name. '  actualizado correctamente');
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class UserRequest extends FormRequest
 {
@@ -21,16 +23,36 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->route('usuario'),
-            'password' => 'required|min:8| confirmed',
 
+        $method = $this->method();
+        $id = $this->route('usuario') ?? Auth::id(); //solo agregar cuando se este editando el perfil
+
+        $rules = [
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($id),
+            ],
         ];
+
+        if ($method === 'POST') {
+            $rules['password'] = 'required|min:8|confirmed'; // Requerido solo en POST (crear)
+        } else if (in_array($method, ['PUT', 'PATCH'])) {
+            $rules['password'] = 'nullable|min:8|confirmed'; // No obligatorio en PUT (editar)
+        }
+
+        return $rules;
+
+        // return [
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|email|unique:users,email,' . $this->route('usuario'),
+        //     'password' => 'required|min:8|confirmed',
+        // ];
     }
 
-    
-    public function messages(){
+    public function messages()
+    {
         return [
             'name.required' => 'El campo nombre es obligatorio.',
             'name.string' => 'El campo nombre debe ser una cadena de texto.',
@@ -42,7 +64,7 @@ class UserRequest extends FormRequest
 
             'password.required' => 'El campo contraseña es obligatorio.',
             'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
-            'password.confirmed' => 'Las contraseñas no coinciden.'
+            'password.confirmed' => 'Las contraseñas no coinciden.',
         ];
     }
 }
